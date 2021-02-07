@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.curso.ecosistema</groupId>
+  <artifactId>10-PluginSQL</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>sql-maven-plugin</artifactId>
+            <version>1.5</version>
+            <dependencies>
+				<dependency>
+				    <groupId>org.apache.derby</groupId>
+				    <artifactId>derbyclient</artifactId>
+				    <version>10.11.1.1</version>
+				</dependency>
+            </dependencies>
+            <configuration>
+            	<username>admin</username>
+            	<password>admin</password>
+            	<url>jdbc:derby://localhost:1527/Liquibase;create=true</url>
+            	<driver>org.apache.derby.jdbc.ClientDriver</driver>
+	        </configuration>
+            <executions>
+                <execution>
+                    <id>default-cli</id>
+                    <goals>
+                        <goal>execute</goal>
+                    </goals>
+                    <configuration>
+                        <srcFiles>
+                           <!-- <srcFile>sql/drop.sql</srcFile>-->
+                           <srcFile>sql/create.sql</srcFile>
+                        </srcFiles>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+</project>
