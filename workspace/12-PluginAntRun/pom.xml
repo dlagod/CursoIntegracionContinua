@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.curso.ecosistema</groupId>
+	<artifactId>12-PluginAntRun</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<build>
+		<plugins>
+			<!-- Plugin que bloquea la ejecución de la tarea Maven, hasta que termine la ejecucion del bat -->
+			<!-- <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<id>Start Derby</id>
+						<phase>test</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>C:\Programas\db-derby-10.11.1.1-bin\bin\call
+								startNetworkServer.bat</executable>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>start-derby</id>
+						<phase>pre-integration-test</phase>
+						<configuration>
+							<target>
+								<exec executable="cmd.exe" spawn="true">
+									<arg value="/c" />
+									<arg value="C:\Programas\db-derby-10.11.1.1-bin\bin\startNetworkServer.bat" />
+								</exec>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>stop-derby</id>
+						<phase>post-integration-test</phase>
+						<configuration>
+							<target>
+								<exec executable="cmd.exe" spawn="true">
+									<arg value="/c" />
+									<arg value="C:\Programas\db-derby-10.11.1.1-bin\bin\stopNetworkServer.bat" />
+								</exec>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
